@@ -21,40 +21,41 @@ export const asyncIncrementAction = createAsyncThunk(
 )
 //"topReducer/asyncIncrementAction/pending"
 
-// const topReducer = createReducer(initialState, (builder) => {
-//     builder
-//         .addCase(increment, (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'}))
-//         .addCase(decrement, (state, action) => {
-//             // console.log('before',current(state));
-//             state.counter = state.counter - 1;
-//             state.action = 'Уменьшили'
-//             // console.log('after', current(state))
-//         })
-//         .addCase(disabled, (state, action) => {state.disabled = action.payload})
-//         .addCase(asyncIncrementAction.pending, (state, action) => {state.disabled = true})
-//         .addCase(asyncIncrementAction.fulfilled, (state, action) => {
-//             state.counter += 2;
-//             state.action = 'Увеличили асинхронно'
-//         })
-//         .addMatcher((action) => action, (state, action) => {console.log('action type -', action.type)} )
-//         .addMatcher((action) => action.type === 'topReducer/asyncIncrementAction/rejected', (state, action) => {state.action = action.error.message;})
+const topReducer = createReducer(initialState, (builder) => {
+    builder
+        .addCase(increment, (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'}))
+        .addCase(decrement, (state, action) => {
+            // console.log('before',current(state));
+            state.counter = state.counter - 1;
+            state.action = 'Уменьшили'
+            // console.log('after', current(state))
+        })
+        .addCase(disabled, (state, action) => {state.disabled = action.payload})
+        .addCase(asyncIncrementAction.pending, (state, action) => {state.disabled = true})
+        .addCase(asyncIncrementAction.fulfilled, (state, action) => {
+            state.counter += 2;
+            state.action = 'Увеличили асинхронно'
+        })
+        .addMatcher((action) => action, (state, action) => {console.log('action type -', action.type)} )
+        .addMatcher((action) => action.type === 'topReducer/asyncIncrementAction/rejected', (state, action) => {state.action = action.error.message;})
 
-//         .addDefaultCase((state, action) => console.log(state, action))
-// })
-const topReducer = createReducer(
-    initialState, 
-    {
-    [increment]: (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'}),
-    [asyncIncrementAction.fulfilled]: (state, action) => {state.counter += 2;state.action = 'Увеличили асинхронно'},
-    },
-    [
-        {
-            matcher: (action) => (action.type === 'topReducer/asyncIncrementAction/rejected'),
-            reducer(state, action){console.log('action type -', action.type)}
-        }
-    ],
-    (state) => {console.log(current(state))}
+        .addDefaultCase((state, action) => console.log(state, action))
+})
+
+// const topReducer = createReducer(
+//     initialState, 
+//     {
+//     [increment]: (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'}),
+//     [asyncIncrementAction.fulfilled]: (state, action) => {state.counter += 2;state.action = 'Увеличили асинхронно'},
+//     },
+//     [
+//         {
+//             matcher: (action) => (action.type === 'topReducer/asyncIncrementAction/rejected'),
+//             reducer(state, action){console.log('action type -', action.type)}
+//         }
+//     ],
+//     (state) => {console.log(current(state))}
     
-)
+// )
 
 export default topReducer;
