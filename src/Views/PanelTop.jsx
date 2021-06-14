@@ -7,7 +7,7 @@ const getTopReducer = (state) => state.topReducer;
 
 const PanelTop = (props) => {
     const dispatch = useDispatch();
-    const {counter} = useSelector(getTopReducer);
+    const {counter, action, disabled} = useSelector(getTopReducer);
     
     return (
         <>
@@ -18,10 +18,10 @@ const PanelTop = (props) => {
             <Button color='secondary' onClick={() => dispatch(decrement())}>
                 DECREMENT
             </Button>
-            <Button styleCustom onClick={()=>dispatch(asyncIncrementAction())}>
+            <Button styleCustom onClick={()=>dispatch(asyncIncrementAction())} disabled={disabled}>
                 ASYNC INCREMENT
             </Button>
-            <div></div>
+            <div>{action}</div>
         </>
     )
 }
