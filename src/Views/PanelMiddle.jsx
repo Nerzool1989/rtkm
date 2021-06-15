@@ -7,7 +7,6 @@ import CustomTable from '../components/CustomTable';
 
 
 const PanelMiddle = (props) => {
-    const dispatch = useDispatch();
 
     const getProducts = async () => {}
     const saveProducts = async () => {}

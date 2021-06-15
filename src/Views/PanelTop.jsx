@@ -1,27 +1,24 @@
 import React from 'react';
 import Button from '../components/Button';
 import {useDispatch, useSelector} from 'react-redux';
-import {increment, decrement, asyncIncrementAction} from '../reduxtk/topReducer';
 
-const getTopReducer = (state) => state.topReducer;
 
 const PanelTop = (props) => {
-    const dispatch = useDispatch();
-    const {counter, action, disabled} = useSelector(getTopReducer);
+   
     
     return (
         <>
-            <div>Счетчик {counter}</div>
-            <Button color='primary' onClick={() => dispatch(increment())}>
+            <div>Счетчик</div>
+            <Button color='primary'>
                 INCREMENT
             </Button>
-            <Button color='secondary' onClick={() => dispatch(decrement())}>
+            <Button color='secondary'>
                 DECREMENT
             </Button>
-            <Button styleCustom onClick={()=>dispatch(asyncIncrementAction())} disabled={disabled}>
+            <Button styleCustom>
                 ASYNC INCREMENT
             </Button>
-            <div>{action}</div>
+            <div></div>
         </>
     )
 }
