@@ -15,14 +15,13 @@ const disabled = (state, action) => {state.disabled = action.payload}
 
 const matcher = (state,action) => console.log('action.type - ', action.type)
 
-const defaultCase = (state, action) => console.log(action);
+const defaultCase = (state, action) => console.log(action.type, "- Экшен не нашелся");
 
 const initialState = {
     counter: 0,
     action: '',
     disabled: false
 };
-
 
 
 const topReducer = (state = initialState, action) => {return state};
