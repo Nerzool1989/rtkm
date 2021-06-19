@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer, createAction, createAsyncThunk} from "@reduxjs/toolkit";
 
 const increment = (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'})
 
