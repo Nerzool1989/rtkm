@@ -1,19 +1,20 @@
-import { createReducer, createAction, createAsyncThunk} from "@reduxjs/toolkit";
+import { createReducer, createAction, createAsyncThunk, current} from "@reduxjs/toolkit";
 
-const increment = (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'})
+const increment = (state, action) => ({...state, counter: state.counter + 1, action: 'Увеличили'});
 
 const decrement = (state, action) => {
     state.counter = state.counter - 1;
-    state.action = 'Уменьшили'
-}
+    state.action = 'Уменьшили';
+};
 
 const asyncIncrementSuccess = (state, action) => {
     state.counter += 2;
     state.action = 'Увеличили асинхронно'
-}
-const disabled = (state, action) => {state.disabled = action.payload}
+};
+const disabled = (state, action) => {state.disabled = action.payload};
 
-const matcher = (state,action) => console.log('action.type - ', action.type)
+const matcher = (state,action) => console.log('action.type - ', action.type);
+const matcherReject = (state, action) => {state.action = action.error.message};
 
 const defaultCase = (state, action) => console.log(action.type, "- Экшен не нашелся");
 
@@ -22,7 +23,6 @@ const initialState = {
     action: '',
     disabled: false
 };
-
 
 const topReducer = (state = initialState, action) => {return state};
 
