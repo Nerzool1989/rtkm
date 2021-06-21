@@ -1,23 +1,33 @@
 import React from 'react';
+import {unwrapResult} from '@reduxjs/toolkit';
 import {useSelector, useDispatch} from 'react-redux';
 import Button from '../components/Button';
-import {Grid, TextField} from '@material-ui/core';
-import SelectCustom from '../components/SelectCustom';
-import CustomTable from '../components/CustomTable';
+import { getProductAndGroup } from '../reduxtk/middleReducer';
+import { setStatusResponse } from '../reduxtk/bottomReducer';
 
+const getMiddleReducer = (state) => state.middleReducer;
 
 const PanelMiddle = (props) => {
+    const dispatch = useDispatch()
 
-    const getProducts = async () => {}
-    const saveProducts = async () => {}
+    const {
+        productGroup, productList, disabled,
+    } = useSelector(getMiddleReducer);
 
+
+    const getProducts = async () => {
+        dispatch(getProductAndGroup())
+            .then(unwrapResult)
+            .then((data) => dispatch(setStatusResponse(data)))
+
+    }
     
     return (
         <>
-            <Button color='primary' onClick={getProducts}>
+            <Button color='primary' onClick={getProducts} disabled={disabled}>
                 Get product list
             </Button>
-            <Button color='secondary' onClick={saveProducts}>SAVE</Button>
+            <Button color='secondary' disabled={disabled}>SAVE</Button>
         </>
     )
 }

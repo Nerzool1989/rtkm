@@ -68,7 +68,7 @@ const topReducer = createReducer(
             reducer: matcherReject
         }
     ],
-    (state, action) => {console.log(action.type, 'Я не узнал')}
+    // (state, action) => {console.log(action.type, 'Я не узнал')}
     
 )
 

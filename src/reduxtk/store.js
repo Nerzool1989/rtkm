@@ -1,8 +1,12 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import topReducer from '../reduxtk/topReducer';
+import middleReducer from './middleReducer';
+import bottomReducer from './bottomReducer';
 
 const reducer = {
-    topReducer
+    topReducer, 
+    middleReducer,
+    bottomReducer
 }
 
 const store = configureStore({
