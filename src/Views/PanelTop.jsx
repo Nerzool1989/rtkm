@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../components/Button';
+import Text from '../components/Text';
 import {useDispatch, useSelector} from 'react-redux';
 import { asyncIncrementAction, decrementAction, incrementAction } from '../reduxtk/topReducer';
 
@@ -12,7 +13,7 @@ const PanelTop = (props) => {
     
     return (
         <>
-            <div>Счетчик {counter}</div>
+            <h3>Счетчик <Text border>{counter}</Text></h3>
             <Button color='primary' onClick={()=>dispatch(incrementAction())}>
                 INCREMENT
             </Button>
@@ -22,7 +23,7 @@ const PanelTop = (props) => {
             <Button styleCustom onClick={() => dispatch(asyncIncrementAction())} disabled={disabled}>
                 ASYNC INCREMENT
             </Button>
-            <div>{action}</div>
+            <h3>{action}</h3>
         </>
     )
 }
