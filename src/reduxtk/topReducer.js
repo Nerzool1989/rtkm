@@ -42,35 +42,34 @@ export const asyncIncrementAction = createAsyncThunk(
 )
 
 
-// const topReducer = createReducer(
-//     initialState,
-//     (builder) => {
-//         builder
-//             .addCase(incrementAction, increment)
-//             .addCase(decrementAction, decrement)
-//             .addCase(asyncIncrementAction.fulfilled, asyncIncrementSuccess)
-//             .addCase(disabledAction, disabled)
-//             .addMatcher(action => action, matcher)
-//             .addMatcher((action) => action.type === 'topReducer/asyncIncrementAction/rejected', matcherReject)
-//             .addDefaultCase(defaultCase)
-//     }
-// )
-
 const topReducer = createReducer(
-    initialState, 
-    {
-        [incrementAction]: increment,
-        [asyncIncrementAction.fulfilled]: asyncIncrementSuccess,
-    },
-    [
-        {
-            matcher: (action) => (action.type === 'topReducer/asyncIncrementAction/rejected'),
-            reducer: matcherReject
-        }
-    ],
-    // (state, action) => {console.log(action.type, 'Я не узнал')}
-    
+    initialState,
+    (builder) => {
+        builder
+            .addCase(incrementAction, increment)
+            .addCase(decrementAction, decrement)
+            .addCase(asyncIncrementAction.fulfilled, asyncIncrementSuccess)
+            .addCase(disabledAction, disabled)
+            // .addMatcher(action => action, matcher)
+            .addMatcher((action) => action.type === 'topReducer/asyncIncrementAction/rejected', matcherReject)
+            .addDefaultCase(defaultCase)
+    }
 )
+
+// const topReducer = createReducer(
+//     initialState, 
+//     {
+//         [incrementAction]: increment,
+//         [asyncIncrementAction.fulfilled]: asyncIncrementSuccess,
+//     },
+//     [
+//         {
+//             matcher: (action) => (action.type === 'topReducer/asyncIncrementAction/rejected'),
+//             reducer: matcherReject
+//         }
+//     ],
+    // (state, action) => {console.log(action.type, 'Я не узнал')}
+// )
 
 
 export default topReducer;

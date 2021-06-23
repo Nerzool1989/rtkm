@@ -1,12 +1,13 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {getProductGroup, getProductList} from '../api/api'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import {getProductGroup, getProductList, saveProductList} from '../api/api'
 
 const initialState = {
     productGroup: [],
     productList: [],
     disabled: false,
+    isSaveSuccess: false,
+    productsFixation: []
 }
-
 
 const getProductAndGroup = createAsyncThunk(
     'middleReducer/getProductAndGroup',
@@ -23,28 +24,53 @@ const getProductAndGroup = createAsyncThunk(
     }
 )
 
+const saveProducAction = createAsyncThunk(
+    'middleReducer/saveProducAction',
+    async (productList, thunkApi) => {
+        thunkApi.dispatch(disabledButton(true));
+        const {success, body} = await saveProductList(productList);
+        thunkApi.dispatch(disabledButton(false)); 
+        if(success){
+           return {success, body}
+        }
+        return {success: false}
+    }
+)
 
 const middleReducer = createSlice({
     name: 'middleReducer',
     initialState,
     reducers: {
-        disabledButton: (state, action) => {state.disabled = action.payload}
+        disabledButton: (state, action) => {state.disabled = action.payload},
+        changeProductsAction: (state, action) => {
+           state.productList = state.productList.map((item) => 
+                (item.id === action.payload.id) ? {...item, ...action.payload} : item
+            )
+        }   
     },
     extraReducers: builder => {
-        builder.addCase(
-            getProductAndGroup.fulfilled, (state, action) => {
-                if(action.payload.success){
-                    const {productGroupData, productListData} = action.payload;
-                    state.productGroup = productGroupData.list;
-                    state.productList = productListData.list;
-                } 
-            }
-        )
+        builder
+            .addCase(getProductAndGroup.fulfilled, (state, action) => {
+                    if(action.payload.success){
+                        const {productGroupData, productListData} = action.payload;
+                        state.productGroup = productGroupData.list;
+                        state.productList = productListData.list;
+                        state.isSaveSuccess = false;
+                    } 
+                }
+            )
+            .addCase(saveProducAction.fulfilled, (state, action) => {
+                    if(action.payload.success){
+                        state.isSaveSuccess = action.payload.success
+                        state.productsFixation = action.payload.body
+                    }
+                }
+            )
     }
 })
 
-export {getProductAndGroup};
+export {getProductAndGroup, saveProducAction};
 
-export const {disabledButton} = middleReducer.actions;
+export const {disabledButton, changeProductsAction} = middleReducer.actions;
 
 export default middleReducer.reducer;
