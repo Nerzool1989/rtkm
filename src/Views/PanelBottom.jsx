@@ -8,7 +8,7 @@ const PanelBottom = () => {
     // const {statusResponse} = useSelector(getBottomReducer);
 
     return (
-        <div></div>
+        <h3></h3>
     )
 }
 

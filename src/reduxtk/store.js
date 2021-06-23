@@ -4,4 +4,3 @@ import topReducer from '../reduxtk/topReducer';
 const reducer = {
     topReducer
 }
-

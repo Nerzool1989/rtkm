@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../components/Button';
+import Text from '../components/Text';
 import {useDispatch, useSelector} from 'react-redux';
 
 const getTopReducer = (state) => state.topReducer;
@@ -10,7 +11,7 @@ const PanelTop = (props) => {
     
     return (
         <>
-            <div>Счетчик</div>
+            <h3>Счетчик <Text border></Text></h3>
             <Button color='primary'>
                 INCREMENT
             </Button>
@@ -20,7 +21,7 @@ const PanelTop = (props) => {
             <Button styleCustom>
                 ASYNC INCREMENT
             </Button>
-            <div></div>
+            <h3></h3>
         </>
     )
 }
