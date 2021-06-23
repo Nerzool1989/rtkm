@@ -60,7 +60,9 @@ const topReducer = createReducer(
     initialState, 
     {
         [incrementAction]: increment,
+        [disabledAction]: disabled,
         [asyncIncrementAction.fulfilled]: asyncIncrementSuccess,
+        
     },
     [
         {
